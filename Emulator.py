@@ -12,8 +12,9 @@ import PIL.PngImagePlugin
 
 save_state_path = "C:/Users/Peter/Documents/Projects/PokemonFireRedBot_libmgba/rom/saves/"
 # state_path = f"{save_state_path}intro.ss0"
-state_path = f"{save_state_path}squirtle_start.ss0"
-state_path = f"{save_state_path}squirtle_level_6.ss0"
+# state_path = f"{save_state_path}squirtle_start.ss0"
+# state_path = f"{save_state_path}squirtle_level_6.ss0"
+state_path = f"{save_state_path}forrest.ss0"
 
 button_map = {
     "A": 0x1,

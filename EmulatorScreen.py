@@ -29,13 +29,13 @@ class EmulatorScreen:
     def update_screen_and_data(self):
         self._game_screen.config(image=self._state._current_screenshot)
 
-        self._data_frame._level.config(text=self._state.pokemon1_level)
-        self._data_frame._hp.config(text=f"{self._state.pokemon1_current_hp} / {self._state.pokemon1_max_hp}")
-        self._data_frame._attack.config(text=self._state.pokemon1_attack)
-        self._data_frame._defense.config(text=self._state.pokemon1_defense)
-        self._data_frame._speed.config(text=self._state.pokemon1_speed)
-        self._data_frame._sp_attack.config(text=self._state.pokemon1_sp_attack)
-        self._data_frame._sp_defense.config(text=self._state.pokemon1_sp_defense)
+        self._data_frame._level.config(text=self._state._pokemon_1._level)
+        self._data_frame._hp.config(text=f"{self._state._pokemon_1._current_hp} / {self._state._pokemon_1._max_hp}")
+        self._data_frame._attack.config(text=self._state._pokemon_1._attack)
+        self._data_frame._defense.config(text=self._state._pokemon_1._defense)
+        self._data_frame._speed.config(text=self._state._pokemon_1._speed)
+        self._data_frame._sp_attack.config(text=self._state._pokemon_1._sp_attack)
+        self._data_frame._sp_defense.config(text=self._state._pokemon_1._sp_defense)
 
 
 

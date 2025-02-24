@@ -1,30 +1,30 @@
 from Emulator import Emulator
 from PIL import ImageTk
+from Pokemon import Pokemon
+# from helpers import load_pokemon_library
 
 class State:
 
     _instance = None
 
     def __new__(cls, *args, **kwargs):
-        if cls._instance is None:
-            cls._instance = super().__new__(cls)
-            cls._instance._initialize()
+        if not cls._instance:
+            cls._instance = super(State, cls).__new__(cls)
+            cls._instance._initialized = False
         return cls._instance
+    
+    def __init__(self, emulator: Emulator = None):
+        if not self._initialized:
+            self._emulator = emulator
 
-    # Initialize default values for the state
-    def _initialize(self):
-        self.pokemon1_current_hp = 0
-        self.pokemon1_max_hp = 0
-        self.pokemon1_level = 0
-        self.pokemon1_attack = 0
-        self.pokemon1_defense = 0
-        self.pokemon1_speed = 0
-        self.pokemon1_sp_attack = 0
-        self.pokemon1_sp_defense = 0
+            self._pokemon_1 = Pokemon(self._emulator, 0x02024284)
+            self._pokemon_2 = Pokemon(self._emulator, 0x020242E8)
+            self._pokemon_3 = Pokemon(self._emulator, 0x0202434C)
+            self._enemy_pokemon = Pokemon(self._emulator, 0x0202402C)
+            self._current_screenshot: ImageTk.PhotoImage = None
 
-        self._current_screenshot: ImageTk.PhotoImage = None
+            self._initialized = True
 
-        pass
 
     def set_emulator(self, emulator: Emulator):
         self._emulator = emulator
@@ -32,14 +32,16 @@ class State:
     def update_state(self):
         self._current_screenshot = ImageTk.PhotoImage(self._emulator.get_current_screen_image())
 
-        self.pokemon1_level = self._emulator.read_bytes(0x020242D8, 1)[0]
-        self.pokemon1_current_hp = self._emulator.read_bytes(0x020242DA, 1)[0]
-        self.pokemon1_max_hp = self._emulator.read_bytes(0x020242DC, 1)[0]
-        self.pokemon1_attack = self._emulator.read_bytes(0x020242DE, 1)[0]
-        self.pokemon1_defense = self._emulator.read_bytes(0x020242E0, 1)[0]
-        self.pokemon1_speed = self._emulator.read_bytes(0x020242E2, 1)[0]
-        self.pokemon1_sp_attack = self._emulator.read_bytes(0x020242E4, 1)[0]
-        self.pokemon1_sp_defense = self._emulator.read_bytes(0x020242E6, 1)[0]
+        self._pokemon_1.update()
+        self._pokemon_2.update()
+        self._pokemon_3.update()
+        self._enemy_pokemon.update()
+        # print(f"1: {self._pokemon_1._pokedex_number} - 2: {self._pokemon_2._pokedex_number} - 3: {self._pokemon_3._pokedex_number}")
+        print(f"1: {self._pokemon_1._name} - 2: {self._pokemon_2._name} - 3: {self._pokemon_3._name} - 4: {self._enemy_pokemon._name}")
+        # print(self._enemy_pokemon.__dict__)
+        # print(self._enemy_pokemon._pokedex_number)
+        # print(f"mine: {self._pokemon_1._decrypted_data}")
+        # print(f"enemy: {self._enemy_pokemon._decrypted_data}")
         
 
 #party pokemon 1 02024284

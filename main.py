@@ -18,8 +18,8 @@ from State import State
 #init the emulator
 emulator = Emulator()
 #init state
-state = State()
-state.set_emulator(emulator)
+state = State(emulator)
+# state.set_emulator(emulator)
 #init the gui
 gui = GUI()
 
